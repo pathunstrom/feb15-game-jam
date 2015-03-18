@@ -13,10 +13,10 @@ class Player(pygame.sprite.DirtySprite):
         self.image = surface
         self.rect = self.image.get_rect()
 
-        self.skill_mod = 0
+        self.skill_mod = False
         self.skill_list = [
-                          [None, None],
-                          [None, None]]
+                          [self.no_attack, self.no_attack],
+                          [self.no_attack, self.no_attack]]
         if len(skills) > 4:
             raise Exception
         for index, skill in enumerate(skills):
@@ -46,8 +46,14 @@ class Player(pygame.sprite.DirtySprite):
         self.x += move['x']
         self.y += move['y']
 
-    def attack(self, mouse):
-        return self.skill_list[self.skill_mod][mouse]()
+    def attack(self, mouse, *args):
+        return self.skill_list[self.skill_mod][mouse](*args)
+
+    def mod(self):
+        self.skill_mod = not self.skill_mod
+
+    def no_attack(self, *args):
+        return None
 
 
 class LengthError(BaseException):

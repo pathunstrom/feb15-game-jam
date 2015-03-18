@@ -39,11 +39,29 @@ class TestPlayer(unittest.TestCase):
         self.assertEqual(self.pc.x, 50)
 
     def test_update_with_collide_at_30(self):
+        self.setUp()
         collide_group = pygame.sprite.Group()
         wall.Wall(50, -55, 50, 50).add(collide_group)
         self.pc.collidables = collide_group
         self.pc.update(1)
         self.assertEqual(self.pc.y, 25)
+
+    def test_attack(self):
+        self.setUp()
+        self.assertEqual(1, self.pc.attack(0, 'target')[0])
+        self.assertEqual(2, self.pc.attack(1, 'target')[0])
+        self.pc.mod()
+        self.assertIsNone(self.pc.attack(0, 'target'))
+        self.assertIsNone(self.pc.attack(1, 'target'))
+
+    def test_no_attack(self):
+        self.assertIsNone(self.pc.no_attack())
+
+    def test_mod(self):
+        self.setUp()
+        self.assertFalse(self.pc.skill_mod)
+        self.pc.mod()
+        self.assertTrue(self.pc.skill_mod)
 
 if __name__ == '__main__':
     unittest.main()
