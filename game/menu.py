@@ -1,6 +1,7 @@
 import pygame
-from pygame.locals import KEYUP, QUIT, MOUSEBUTTONUP, K_ESCAPE, K_RETURN
+from pygame.locals import KEYUP, QUIT, MOUSEBUTTONUP, K_ESCAPE, K_RETURN, K_t
 import maps.bar.scene as bar
+import maps.test.scene as test
 
 
 def run(screen, debug=False, **kwargs):
@@ -14,6 +15,7 @@ def run(screen, debug=False, **kwargs):
     m_rect.center = screen_rect.center
     screen.blit(message, m_rect)
     running = True
+    scene = None
     while running:
         running, scene = handle_events(screen, debug)
         screen.blit(message, m_rect)
@@ -30,6 +32,8 @@ def handle_events(screen, debug):
                 return False, None
             elif event.key == K_RETURN:
                 return False, bar
+            elif event.key == K_t:
+                return False, test
         elif event.type == MOUSEBUTTONUP:
             return False, bar
         elif event.type == QUIT:

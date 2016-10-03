@@ -1,6 +1,7 @@
 import pygame
 import manager
 import game
+from sprites.player import Player
 
 
 WIN_HEIGHT = 500
@@ -11,8 +12,8 @@ DEBUG = True
 
 def main(view, debug=False):
     if debug: print "Main.main started."
-
-    manager.run(view, game.menu)
+    player = Player()
+    manager.run(view, game.menu, player)
 
 
 if __name__ == "__main__":
